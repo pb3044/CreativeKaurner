@@ -40,6 +40,9 @@ Custom requests and claims are by **email or Instagram only** (no on-site form).
 |------|-----|
 | `images/creativekaurner-logo-white.png` | Website nav/footer (white reverse on transparent) |
 | `images/creativekaurner-og.jpg` | Open Graph / social share image |
+| `images/creativekaurner-qr.png` | Branded QR sticker (salal on foam) → [creativekaurner.ca](https://creativekaurner.ca/) |
+| `images/creativekaurner-qr-card.png` | Print/share card with tagline |
+| `images/creativekaurner-qr-plain.png` | High-contrast QR only (best for tiny print) |
 
 | Token | Hex | Role |
 |-------|-----|------|
