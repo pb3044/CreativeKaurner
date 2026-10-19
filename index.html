@@ -3,493 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nature Photography</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #1a1a1a;
-            --secondary-color: #f8f8f8;
-            --accent-color: #c9aa71;
-            --text-color: #333;
-            --light-text: #999;
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            background-image: url('bkg.jpg');
-            line-height: 1.8;
-            margin: 0;
-            padding: 0;
-        }
-        
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 500;
-        }
-        
-        .navbar {
-            background-color: transparent !important;
-            position: absolute;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            padding: 10px 0;
-            transition: all 0.3s ease;
-        }
-        
-        .navbar.scrolled {
-            background-color: rgba(26, 26, 26, 0.7) !important;
-            position: fixed;
-            padding: 5px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .navbar-brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            color: white !important;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-            height: 80px; /* Keep the container height fixed */
-            overflow: hidden;
-            /* Removed background */
-            padding: 5px 10px;
-        }
-        
-        .logo-img {
-            height: 200px; /* Increased size further */
-            width: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.8)); /* Enhanced shadow for visibility without background */
-        }
-        
-        .navbar-toggler {
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            padding: 4px 8px;
-        }
-        
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-        
-        @media (max-width: 991px) {
-            .logo-container {
-                height: 60px;
-            }
-            
-            .logo-img {
-                height: 160px; /* Increased for mobile as well */
-            }
-            
-            .navbar-collapse {
-                background-color: rgba(26, 26, 26, 0.8);
-                padding: 15px;
-                border-radius: 5px;
-                margin-top: 10px;
-            }
-            
-            .navbar-nav {
-                text-align: center;
-            }
-            
-            .nav-item {
-                margin: 8px 0;
-            }
-        }
-        
-        .nav-link {
-            color: white !important;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 0 15px;
-            position: relative;
-        }
-        
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--accent-color);
-            left: 0;
-            bottom: -5px;
-            transition: width 0.3s;
-        }
-        
-        .nav-link:hover:after {
-            width: 100%;
-        }
-        
-        .hero {
-            background: url('hero.png') center/cover no-repeat;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            color: white;
-        }
-        
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-        }
-        
-        .hero-content {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            padding: 20px;
-        }
-        
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-        
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-        
-        .btn-custom {
-            background-color: transparent;
-            color: white;
-            border: 2px solid var(--accent-color);
-            border-radius: 0;
-            padding: 12px 30px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-custom:hover {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            display: inline-block;
-            position: relative;
-            padding-bottom: 15px;
-        }
-        
-        .section-title h2:after {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 3px;
-            background: var(--accent-color);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .portfolio-section {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            grid-gap: 15px;
-            margin-bottom: 50px;
-        }
-        
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            height: 300px;
-        }
-        
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-        
-        .gallery-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            opacity: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s;
-        }
-        
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-        
-        .gallery-overlay-content {
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .gallery-overlay-content h4 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-        
-        .gallery-overlay-content p {
-            font-size: 14px;
-            margin-bottom: 0;
-        }
-        
-        .about-section {
-            padding: 100px 0;
-            background-color: var(--secondary-color);
-        }
-        
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .contact-section {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .contact-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .social-icons {
-            margin-top: 30px;
-        }
-        
-        .social-icons a {
-            color: var(--primary-color);
-            font-size: 22px;
-            margin: 0 15px;
-            transition: color 0.3s;
-        }
-        
-        .social-icons a:hover {
-            color: var(--accent-color);
-        }
-        
-        .footer {
-            background: var(--primary-color);
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-        }
-        
-        .footer p {
-            margin-bottom: 0;
-            font-size: 14px;
-        }
-        
-        .footer a {
-            color: var(--accent-color);
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-        
-        .footer a:hover {
-            opacity: 0.8;
-            text-decoration: underline;
-        }
-    </style>
+    <meta name="theme-color" content="#1a1f1c">
+    <title>CreativeKaurner — Handcrafted with heart on Vancouver Island</title>
+    <meta name="description" content="Handcrafted coastal treasures from Vancouver Island — knit bags, painted beach finds, keepsake cards, custom art, and nature prints.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://creativekaurner.ca/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CreativeKaurner">
+    <meta property="og:title" content="CreativeKaurner — Handcrafted with heart on Vancouver Island">
+    <meta property="og:description" content="Handcrafted coastal treasures from Vancouver Island — knit bags, painted beach finds, keepsake cards, custom art, and nature prints.">
+    <meta property="og:url" content="https://creativekaurner.ca/">
+    <meta property="og:image" content="https://creativekaurner.ca/images/creativekaurner-og.jpg">
+    <meta property="og:locale" content="en_CA">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CreativeKaurner — Handcrafted with heart on Vancouver Island">
+    <meta name="twitter:description" content="Handcrafted coastal treasures from Vancouver Island — knit bags, painted beach finds, keepsake cards, custom art, and nature prints.">
+    <meta name="twitter:image" content="https://creativekaurner.ca/images/creativekaurner-og.jpg">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="preload" href="fonts/source-sans-3-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/fraunces-latin-opsz-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" as="image" href="images/creativekaurner-handmade-hero-1280.avif" imagesrcset="images/creativekaurner-handmade-hero-768.avif 768w, images/creativekaurner-handmade-hero-1280.avif 1280w, images/creativekaurner-handmade-hero-1920.avif 1920w" imagesizes="100vw" type="image/avif" fetchpriority="high">
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "CreativeKaurner",
+      "alternateName": "Sehaj Creative-kaurner",
+      "description": "Handcrafted coastal treasures from Vancouver Island — knit bags, painted beach finds, keepsake cards, custom art, and nature prints.",
+      "url": "https://creativekaurner.ca/",
+      "email": "Creativekaurner@gmail.com",
+      "image": "https://creativekaurner.ca/images/creativekaurner-og.jpg",
+      "areaServed": {
+        "@type": "Place",
+        "name": "Vancouver Island, British Columbia"
+      },
+      "sameAs": [
+        "https://www.instagram.com/creativekaurner/"
+      ]
+    }
+    </script>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <div class="logo-container">
-                    <img src="logo.png" alt="Sehaj Photography Logo" class="logo-img">
-                </div>
+<body class="page-home">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <nav class="navbar" id="navbar" aria-label="Primary">
+        <div class="container nav-inner">
+            <a class="brand-lockup" href="index.html">
+                <img src="images/creativekaurner-logo-white.png" alt="CreativeKaurner — Sehaj" class="logo-img" width="224" height="224">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+                <span></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#portfolio">Portfolio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
+                                    <ul class="nav-links" id="navLinks">
+                <li><a href="shop.html">Shop</a></li><li><a href="gifts.html">Gifts</a></li><li><a href="prints.html">Prints</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
+            </ul>
         </div>
     </nav>
-
-    <section class="hero">
+<header class="hero" id="top">
+        <picture class="hero-media">
+            <source type="image/avif" srcset="images/creativekaurner-handmade-hero-768.avif 768w, images/creativekaurner-handmade-hero-1280.avif 1280w, images/creativekaurner-handmade-hero-1920.avif 1920w" sizes="100vw">
+            <img class="hero-img" src="images/creativekaurner-handmade-hero-1280.webp" srcset="images/creativekaurner-handmade-hero-768.webp 768w, images/creativekaurner-handmade-hero-1280.webp 1280w, images/creativekaurner-handmade-hero-1920.webp 1920w" sizes="100vw" alt="" width="1920" height="2207" fetchpriority="high" decoding="sync">
+        </picture>
         <div class="hero-content">
-            <p>Explore the world through my lens - where every image tells a story of our beautiful planet</p>
-            <a href="#portfolio" class="btn btn-custom">View Portfolio</a>
+            <p class="hero-place">Vancouver Island, BC</p>
+            <h1>Handcrafted with heart</h1>
+            <p class="hero-support">Knit bags, painted beach finds, and keepsake cards — one-of-a-kind pieces gathered and made on Vancouver Island.</p>
+            <div class="cta-row">
+                <a class="btn btn-primary" href="shop.html">Shop the collection</a>
+                <a class="btn btn-ghost" href="contact.html">Request a custom</a>
+            </div>
+        </div>
+    </header>
+    <main id="main">
+<section class="section section-sand" id="story" aria-labelledby="story-heading">
+        <div class="container story-strip reveal">
+            <div class="story-visual">
+                <picture>
+                    <source type="image/avif" srcset="images/vancouver-island-coast-800.avif 800w, images/vancouver-island-coast-1200.avif 1200w" sizes="(min-width: 800px) 46vw, 92vw">
+                    <img src="images/vancouver-island-coast-1200.webp" srcset="images/vancouver-island-coast-800.webp 800w, images/vancouver-island-coast-1200.webp 1200w" sizes="(min-width: 800px) 46vw, 92vw" alt="Coastal Vancouver Island atmosphere" width="1200" height="800" loading="lazy" decoding="async">
+                </picture>
+            </div>
+            <div>
+                <div class="section-title" style="text-align: left;">
+                    <h2 id="story-heading">Gathered on Island shores</h2>
+                </div>
+                <p>Gathered on local Vancouver Island beaches. Painted, knit, and finished by hand — one pebble, shell, bag, and card at a time.</p>
+                <ol class="story-steps">
+                    <li>
+                        <span class="step-num">01</span>
+                        <div>
+                            <strong>Beach finds</strong>
+                            <span>Pebbles and shells collected from local shores become tiny canvases.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">02</span>
+                        <div>
+                            <strong>Handcraft</strong>
+                            <span>Knit bags, painted fabric, and keepsake cards made to feel personal.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">03</span>
+                        <div>
+                            <strong>Yours</strong>
+                            <span>Claim a ready piece, or request a custom made just for you.</span>
+                        </div>
+                    </li>
+                </ol>
+            </div>
         </div>
     </section>
-
-    <section id="portfolio" class="portfolio-section">
+    <section class="section section-foam" aria-labelledby="featured-heading">
         <div class="container">
             <div class="section-title">
-                <h2>Portfolio</h2>
+                <h2 id="featured-heading">Available now</h2>
             </div>
-           <div class="gallery-container">
-                <div class="gallery-item">
-                    <img src="sunrise.jpeg" alt="Sunrise">
-                    <div class="gallery-overlay">
-                        <div class="gallery-overlay-content">
-                            <h4>Sunrise Moments</h4>
-                            <p>Capturing the first light of day</p>
-                        </div>
+            <p class="section-lede">A few ready pieces — claim by email or Instagram DM. Island pickup available.</p>
+            <div class="product-grid featured-grid reveal">
+                <article class="product">
+                    <div class="product-media">
+                        <span class="badge">Available</span>
+                        <picture>
+                            <source type="image/avif" srcset="images/handmade-mustard-woven-tote-480.avif 480w, images/handmade-mustard-woven-tote-800.avif 800w" sizes="(min-width: 900px) 22vw, (min-width: 560px) 46vw, 92vw">
+                            <img src="images/handmade-mustard-woven-tote-480.webp" srcset="images/handmade-mustard-woven-tote-480.webp 480w, images/handmade-mustard-woven-tote-800.webp 800w" sizes="(min-width: 900px) 22vw, (min-width: 560px) 46vw, 92vw" alt="Handmade mustard woven tote bag" width="800" height="800" loading="lazy" decoding="async">
+                        </picture>
                     </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="mountains.jpeg" alt="Mountain">
-                    <div class="gallery-overlay">
-                        <div class="gallery-overlay-content">
-                            <h4>Majestic Peaks</h4>
-                            <p>The grandeur of mountain landscapes</p>
-                        </div>
+                    <h3>Mustard woven tote</h3>
+                    <p class="product-meta">Handmade · Ready to carry</p>
+                    <a class="btn btn-outline btn-sm" href="mailto:Creativekaurner@gmail.com?subject=Claim%3A%20Mustard%20woven%20tote">Claim this piece</a>
+                </article>
+                <article class="product">
+                    <div class="product-media">
+                        <span class="badge">Available</span>
+                        <picture>
+                            <source type="image/avif" srcset="images/handmade-floral-oyster-shell-dishes-480.avif 480w, images/handmade-floral-oyster-shell-dishes-800.avif 800w" sizes="(min-width: 900px) 22vw, (min-width: 560px) 46vw, 92vw">
+                            <img src="images/handmade-floral-oyster-shell-dishes-480.webp" srcset="images/handmade-floral-oyster-shell-dishes-480.webp 480w, images/handmade-floral-oyster-shell-dishes-800.webp 800w" sizes="(min-width: 900px) 22vw, (min-width: 560px) 46vw, 92vw" alt="Floral gold-rim oyster shell dishes" width="800" height="800" loading="lazy" decoding="async">
+                        </picture>
                     </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="Clouds.jpeg" alt="Clouds">
-                    <div class="gallery-overlay">
-                        <div class="gallery-overlay-content">
-                            <h4>Sky Dreams</h4>
-                            <p>The ever-changing canvas above</p>
-                        </div>
+                    <h3>Floral oyster shell dishes</h3>
+                    <p class="product-meta">Gold-rim · Beach-found shells</p>
+                    <a class="btn btn-outline btn-sm" href="mailto:Creativekaurner@gmail.com?subject=Claim%3A%20Floral%20oyster%20shell%20dishes">Claim this piece</a>
+                </article>
+                <article class="product">
+                    <div class="product-media">
+                        <span class="badge">Available</span>
+                        <picture>
+                            <source type="image/avif" srcset="images/handmade-cherry-jar-cozy-480.avif 480w, images/handmade-cherry-jar-cozy-800.avif 800w" sizes="(min-width: 900px) 22vw, (min-width: 560px) 46vw, 92vw">
+                            <img src="images/handmade-cherry-jar-cozy-480.webp" srcset="images/handmade-cherry-jar-cozy-480.webp 480w, images/handmade-cherry-jar-cozy-800.webp 800w" sizes="(min-width: 900px) 22vw, (min-width: 560px) 46vw, 92vw" alt="Cherry-print fabric cozy on amber jar" width="800" height="800" loading="lazy" decoding="async">
+                        </picture>
                     </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="Rainbow.jpeg" alt="Rainbow">
-                    <div class="gallery-overlay">
-                        <div class="gallery-overlay-content">
-                            <h4>Nature's Spectrum</h4>
-                            <p>The magic after the rain</p>
-                        </div>
-                    </div>
-                </div>
+                    <h3>Cherry jar cozy</h3>
+                    <p class="product-meta">Handmade fabric sleeve</p>
+                    <a class="btn btn-outline btn-sm" href="mailto:Creativekaurner@gmail.com?subject=Claim%3A%20Cherry%20jar%20cozy">Claim this piece</a>
+                </article>
             </div>
-        </div>
+            <p class="featured-more"><a href="shop.html#available">See all available pieces</a></p>
         </div>
     </section>
-
-    <section id="about" class="about-section">
+    <section class="section section-sand" aria-labelledby="explore-heading">
         <div class="container">
             <div class="section-title">
-                <h2>About</h2>
+                <h2 id="explore-heading">Explore</h2>
             </div>
-            <div class="about-content">
-                <p>Passionate about capturing the serenity and raw beauty of nature, SK specializes in landscape, wildlife, and outdoor photography. With an eye for detail and a commitment to showcasing the world's natural wonders, each photograph is crafted to evoke emotion and connection with our environment.</p>
+            <p class="section-lede">Shop ready pieces, find a gift for the moment, or request something made just for you.</p>
+            <div class="home-cta-grid">
+                <a class="tile" href="shop.html">
+                    <picture>
+                        <source type="image/avif" srcset="images/creativekaurner-explore-shop-480.avif 480w, images/creativekaurner-explore-shop-800.avif 800w" sizes="(min-width: 700px) 30vw, 92vw">
+                        <img class="tile-media" src="images/creativekaurner-explore-shop-800.webp" srcset="images/creativekaurner-explore-shop-480.webp 480w, images/creativekaurner-explore-shop-800.webp 800w" sizes="(min-width: 700px) 30vw, 92vw" alt="Handmade mustard woven tote from the CreativeKaurner collection" width="800" height="1000" loading="lazy" decoding="async">
+                    </picture>
+                    <div class="tile-scrim"></div>
+                    <div class="tile-body"><h3>Shop</h3><p>Collections &amp; available pieces</p></div>
+                </a>
+                <a class="tile" href="gifts.html">
+                    <picture>
+                        <source type="image/avif" srcset="images/creativekaurner-explore-gifts-480.avif 480w, images/creativekaurner-explore-gifts-800.avif 800w" sizes="(min-width: 700px) 30vw, 92vw">
+                        <img class="tile-media" src="images/creativekaurner-explore-gifts-800.webp" srcset="images/creativekaurner-explore-gifts-480.webp 480w, images/creativekaurner-explore-gifts-800.webp 800w" sizes="(min-width: 700px) 30vw, 92vw" alt="Floral oyster shell dishes as gift-ready keepsakes" width="800" height="1000" loading="lazy" decoding="async">
+                    </picture>
+                    <div class="tile-scrim"></div>
+                    <div class="tile-body"><h3>Gifts</h3><p>Christmas, weddings, birthdays &amp; more</p></div>
+                </a>
+                <a class="tile" href="contact.html">
+                    <picture>
+                        <source type="image/avif" srcset="images/creativekaurner-explore-contact-480.avif 480w, images/creativekaurner-explore-contact-800.avif 800w" sizes="(min-width: 700px) 30vw, 92vw">
+                        <img class="tile-media" src="images/creativekaurner-explore-contact-800.webp" srcset="images/creativekaurner-explore-contact-480.webp 480w, images/creativekaurner-explore-contact-800.webp 800w" sizes="(min-width: 700px) 30vw, 92vw" alt="Mother quote plaque handmade keepsake" width="800" height="1000" loading="lazy" decoding="async">
+                    </picture>
+                    <div class="tile-scrim"></div>
+                    <div class="tile-body"><h3>Contact</h3><p>Email or Instagram for customs &amp; claims</p></div>
+                </a>
             </div>
         </div>
     </section>
-
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contact</h2>
+    </main>
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="images/creativekaurner-logo-white.png" alt="CreativeKaurner — Sehaj" class="footer-logo" width="96" height="96" loading="lazy">
+                <p class="footer-place">Vancouver Island, BC</p>
             </div>
-            <div class="contact-content">
-                <p>Interested in prints or have a project in mind? Let's connect!</p>
-                <div class="social-icons">
-                    <a href="https://www.instagram.com/creativekaurner/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="mailto:Creativekaurner@gmail.com"><i class="far fa-envelope"></i></a>
-                </div>
+            <div class="footer-meta">
+                <p>© <span id="year"></span> CreativeKaurner · Handmade coastal gifts</p>
+                <p class="footer-links">
+                    <a href="privacy.html">Privacy</a>
+                    · <a href="https://www.instagram.com/creativekaurner/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                </p>
             </div>
-        </div>
-    </section>
-
- <footer class="footer">
-        <div class="container">
-            <p>© 2025 SK Photography. All Rights Reserved. Designed by <a href="https://www.topinfosys.com/" target="_blank">TopInfoSys</a></p>
         </div>
     </footer>
-
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // Add scrolled class to navbar on scroll
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-        
-        // Ensure mobile menu works properly
-        document.addEventListener('DOMContentLoaded', function() {
-            const navbarToggler = document.querySelector('.navbar-toggler');
-            const navbarCollapse = document.querySelector('.navbar-collapse');
-            
-            // Close menu when clicking a nav link on mobile
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth < 992) {
-                        navbarCollapse.classList.remove('show');
-                    }
-                });
-            });
-            
-            // Close menu when clicking outside
-            document.addEventListener('click', function(event) {
-                const isClickInside = navbarToggler.contains(event.target) || 
-                                     navbarCollapse.contains(event.target);
-                
-                if (!isClickInside && navbarCollapse.classList.contains('show') && 
-                    window.innerWidth < 992) {
-                    navbarCollapse.classList.remove('show');
-                }
-            });
-        });
-    </script>
+    <script src="js/site.js" defer></script>
 </body>
 </html>
