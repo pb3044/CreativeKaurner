@@ -4,6 +4,8 @@
     const links = document.getElementById("navLinks");
     const yearEl = document.getElementById("year");
     const isHome = document.body.classList.contains("page-home");
+    const main = document.getElementById("main");
+    const footer = document.querySelector(".footer");
 
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
@@ -24,10 +26,28 @@
     }
 
     if (toggle && links) {
+        function getFocusableInMenu() {
+            return Array.prototype.slice.call(
+                links.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+            ).filter(function (el) {
+                return !el.hasAttribute("disabled") && el.offsetParent !== null;
+            });
+        }
+
+        function setBackgroundInert(open) {
+            [main, footer].forEach(function (el) {
+                if (!el) return;
+                if (open) el.setAttribute("inert", "");
+                else el.removeAttribute("inert");
+            });
+        }
+
         function setMenuOpen(open) {
             links.classList.toggle("open", open);
             toggle.setAttribute("aria-expanded", open ? "true" : "false");
             toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+            setBackgroundInert(open);
+            document.body.classList.toggle("nav-open", open);
         }
 
         function closeMenu(returnFocus) {
@@ -36,7 +56,12 @@
         }
 
         toggle.addEventListener("click", function () {
-            setMenuOpen(!links.classList.contains("open"));
+            const willOpen = !links.classList.contains("open");
+            setMenuOpen(willOpen);
+            if (willOpen) {
+                const focusables = getFocusableInMenu();
+                if (focusables[0]) focusables[0].focus();
+            }
         });
 
         links.querySelectorAll("a").forEach(function (link) {
@@ -52,8 +77,30 @@
         });
 
         document.addEventListener("keydown", function (event) {
-            if (event.key === "Escape" && links.classList.contains("open")) {
+            if (!links.classList.contains("open")) return;
+
+            if (event.key === "Escape") {
                 closeMenu(true);
+                return;
+            }
+
+            if (event.key !== "Tab") return;
+
+            const focusables = getFocusableInMenu();
+            if (!focusables.length) return;
+
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            const active = document.activeElement;
+
+            if (event.shiftKey) {
+                if (active === first || active === toggle) {
+                    event.preventDefault();
+                    last.focus();
+                }
+            } else if (active === last) {
+                event.preventDefault();
+                first.focus();
             }
         });
     }
@@ -83,13 +130,12 @@
 
         const dialog = document.createElement("dialog");
         dialog.className = "lightbox";
-        dialog.setAttribute("aria-label", "Enlarged image");
         dialog.innerHTML =
             '<div class="lightbox-panel">' +
                 '<button type="button" class="lightbox-close" aria-label="Close">&times;</button>' +
                 '<figure class="lightbox-figure"><img alt=""></figure>' +
                 '<div class="lightbox-meta">' +
-                    '<p class="lightbox-title"></p>' +
+                    '<p class="lightbox-title" id="lightbox-title"></p>' +
                     '<div class="lightbox-actions" hidden>' +
                         '<a class="btn btn-primary lightbox-inquire" href="#">Inquire by email</a>' +
                     '</div>' +
@@ -121,18 +167,27 @@
             return bestUrl || el.currentSrc || el.getAttribute("src") || "";
         }
 
+        function withAvifFallback(url) {
+            if (!url || !/\.webp$/i.test(url)) return { src: url, fallback: "" };
+            return { src: url.replace(/\.webp$/i, ".avif"), fallback: url };
+        }
+
         function resolveImage(trigger) {
             const explicit = trigger.getAttribute("data-lightbox");
             if (explicit && explicit !== "true" && explicit !== "") {
+                const preferred = withAvifFallback(explicit);
                 return {
-                    src: explicit,
+                    src: preferred.src,
+                    fallback: preferred.fallback,
                     alt: trigger.getAttribute("data-lightbox-alt") || ""
                 };
             }
             const media = trigger.querySelector("img") || (trigger.tagName === "IMG" ? trigger : null);
-            if (!media) return { src: "", alt: "" };
+            if (!media) return { src: "", fallback: "", alt: "" };
+            const fromSrcset = withAvifFallback(largestFromSrcset(media));
             return {
-                src: largestFromSrcset(media),
+                src: fromSrcset.src,
+                fallback: fromSrcset.fallback,
                 alt: trigger.getAttribute("data-lightbox-alt") || media.getAttribute("alt") || ""
             };
         }
@@ -153,9 +208,19 @@
             if (!resolved.src) return;
 
             lastTrigger = trigger;
+            img.onerror = null;
+            if (resolved.fallback) {
+                img.onerror = function () {
+                    img.onerror = null;
+                    img.src = resolved.fallback;
+                };
+            }
             img.src = resolved.src;
             img.alt = resolved.alt;
-            titleEl.textContent = resolveTitle(trigger);
+            const title = resolveTitle(trigger);
+            titleEl.textContent = title;
+            dialog.setAttribute("aria-labelledby", "lightbox-title");
+            dialog.removeAttribute("aria-label");
 
             const mailto = trigger.getAttribute("data-lightbox-mailto") ||
                 (trigger.matches('a[href^="mailto:"]') ? trigger.getAttribute("href") : "");

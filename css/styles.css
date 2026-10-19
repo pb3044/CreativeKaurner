@@ -314,7 +314,7 @@
             }
         }
 
-        /* â€”â€” Buttons â€”â€” */
+        /* —— Buttons —— */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -392,7 +392,7 @@
             justify-content: center;
         }
 
-        /* â€”â€” Hero â€”â€” */
+        /* —— Hero —— */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -506,7 +506,7 @@
             }
         }
 
-        /* â€”â€” Sections â€”â€” */
+        /* —— Sections —— */
         .section {
             padding: var(--space-section) 0;
         }
@@ -565,7 +565,7 @@
             transform: translateY(0);
         }
 
-        /* â€”â€” Story â€”â€” */
+        /* —— Story —— */
         .story-strip {
             display: grid;
             gap: 2rem;
@@ -629,7 +629,7 @@
 
         .story-steps span { color: var(--ink-soft); font-size: 0.95rem; }
 
-        /* â€”â€” Collection / gift tiles â€”â€” */
+        /* —— Collection / gift tiles —— */
         .tile-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -728,7 +728,7 @@
         .tile-plain .tile-body h3 { color: var(--ink); }
         .tile-plain .tile-body p { color: var(--ink-soft); opacity: 1; }
 
-        /* â€”â€” Product grid â€”â€” */
+        /* —— Product grid —— */
         .product-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -834,7 +834,7 @@
 
         .gift-chips a:hover { color: var(--salal-deep); border-color: var(--salal); }
 
-        /* â€”â€” Custom form â€”â€” */
+        /* —— Custom form —— */
         .custom-layout {
             display: grid;
             gap: 2.5rem;
@@ -912,7 +912,7 @@
             font-size: 0.85rem;
         }
 
-        /* â€”â€” About / Contact â€”â€” */
+        /* —— About / Contact —— */
         .about-content,
         .contact-content {
             max-width: 40em;
@@ -1164,6 +1164,7 @@
     padding: clamp(1.25rem, 3vw, 1.75rem);
     max-height: 92vh;
     overflow: auto;
+    overscroll-behavior: contain;
     background: var(--ink);
     border-radius: var(--radius-soft);
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
@@ -1185,11 +1186,16 @@
     cursor: pointer;
 }
 
-.lightbox-close:hover,
-.lightbox-close:focus-visible {
+.lightbox-close:hover {
     background: var(--salal);
     border-color: var(--salal);
-    outline: none;
+}
+
+.lightbox-close:focus-visible {
+    background: var(--salal);
+    border-color: var(--foam);
+    outline: 2px solid var(--sand);
+    outline-offset: 2px;
 }
 
 .lightbox-figure {

@@ -14,6 +14,8 @@
     <meta property="og:description" content="Handcrafted coastal treasures from Vancouver Island — knit bags, painted beach finds, keepsake cards, custom art, and nature prints.">
     <meta property="og:url" content="https://creativekaurner.ca/">
     <meta property="og:image" content="https://creativekaurner.ca/images/creativekaurner-og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="628">
     <meta property="og:locale" content="en_CA">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="CreativeKaurner — Handcrafted with heart on Vancouver Island">
@@ -25,24 +27,45 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="preload" href="fonts/source-sans-3-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/fraunces-latin-opsz-wght.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" as="image" href="images/creativekaurner-handmade-hero-1280.avif" imagesrcset="images/creativekaurner-handmade-hero-768.avif 768w, images/creativekaurner-handmade-hero-1280.avif 1280w, images/creativekaurner-handmade-hero-1920.avif 1920w" imagesizes="100vw" type="image/avif" fetchpriority="high">
+    <link rel="preload" as="image" href="images/creativekaurner-handmade-hero-1280.avif" imagesrcset="images/creativekaurner-handmade-hero-768.avif 768w, images/creativekaurner-handmade-hero-1280.avif 1280w, images/creativekaurner-handmade-hero-1920.avif 1670w" imagesizes="100vw" type="image/avif" fetchpriority="high">
     <link rel="stylesheet" href="css/styles.css">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "CreativeKaurner",
-      "alternateName": "Sehaj Creative-kaurner",
-      "description": "Handcrafted coastal treasures from Vancouver Island — knit bags, painted beach finds, keepsake cards, custom art, and nature prints.",
-      "url": "https://creativekaurner.ca/",
-      "email": "Creativekaurner@gmail.com",
-      "image": "https://creativekaurner.ca/images/creativekaurner-og.jpg",
-      "areaServed": {
-        "@type": "Place",
-        "name": "Vancouver Island, British Columbia"
-      },
-      "sameAs": [
-        "https://www.instagram.com/creativekaurner/"
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "CreativeKaurner",
+          "url": "https://creativekaurner.ca/"
+        },
+        {
+          "@type": ["LocalBusiness", "Handicraft"],
+          "name": "CreativeKaurner",
+          "alternateName": "Sehaj Creative-kaurner",
+          "description": "Handcrafted coastal treasures from Vancouver Island — woven bags, painted beach finds, plaques, cozies, and nature prints.",
+          "url": "https://creativekaurner.ca/",
+          "email": "Creativekaurner@gmail.com",
+          "image": "https://creativekaurner.ca/images/creativekaurner-og.jpg",
+          "priceRange": "$$",
+          "address": {
+            "@type": "PostalAddress",
+            "addressRegion": "BC",
+            "addressCountry": "CA",
+            "addressLocality": "Vancouver Island"
+          },
+          "areaServed": {
+            "@type": "Place",
+            "name": "Vancouver Island, British Columbia"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Handmade coastal craft collections",
+            "url": "https://creativekaurner.ca/shop.html"
+          },
+          "sameAs": [
+            "https://www.instagram.com/creativekaurner/"
+          ]
+        }
       ]
     }
     </script>
@@ -51,7 +74,7 @@
     <a class="skip-link" href="#main">Skip to content</a>
     <nav class="navbar" id="navbar" aria-label="Primary">
         <div class="container nav-inner">
-            <a class="brand-lockup" href="index.html">
+            <a class="brand-lockup" href="/">
                 <img src="images/creativekaurner-logo-white.png" alt="CreativeKaurner — Sehaj" class="logo-img" width="224" height="224">
             </a>
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
@@ -64,8 +87,8 @@
     </nav>
 <header class="hero" id="top">
         <picture class="hero-media">
-            <source type="image/avif" srcset="images/creativekaurner-handmade-hero-768.avif 768w, images/creativekaurner-handmade-hero-1280.avif 1280w, images/creativekaurner-handmade-hero-1920.avif 1920w" sizes="100vw">
-            <img class="hero-img" src="images/creativekaurner-handmade-hero-1280.webp" srcset="images/creativekaurner-handmade-hero-768.webp 768w, images/creativekaurner-handmade-hero-1280.webp 1280w, images/creativekaurner-handmade-hero-1920.webp 1920w" sizes="100vw" alt="" width="1920" height="2207" fetchpriority="high" decoding="sync">
+            <source type="image/avif" srcset="images/creativekaurner-handmade-hero-768.avif 768w, images/creativekaurner-handmade-hero-1280.avif 1280w, images/creativekaurner-handmade-hero-1920.avif 1670w" sizes="100vw">
+            <img class="hero-img" src="images/creativekaurner-handmade-hero-1280.webp" srcset="images/creativekaurner-handmade-hero-768.webp 768w, images/creativekaurner-handmade-hero-1280.webp 1280w, images/creativekaurner-handmade-hero-1920.webp 1670w" sizes="100vw" alt="" width="1670" height="1920" fetchpriority="high" decoding="sync">
         </picture>
         <div class="hero-content">
             <p class="hero-place">Vancouver Island, BC</p>
@@ -141,7 +164,7 @@
                         <span class="badge">Available</span>
                         <picture>
                             <source type="image/avif" srcset="images/handmade-floral-oyster-shell-dishes-480.avif 480w, images/handmade-floral-oyster-shell-dishes-800.avif 800w" sizes="(min-width: 900px) 22vw, (min-width: 560px) 46vw, 92vw">
-                            <img src="images/handmade-floral-oyster-shell-dishes-480.webp" srcset="images/handmade-floral-oyster-shell-dishes-480.webp 480w, images/handmade-floral-oyster-shell-dishes-800.webp 800w" sizes="(min-width: 900px) 22vw, (min-width: 560px) 46vw, 92vw" alt="Floral gold-rim oyster shell dishes" width="800" height="800" loading="lazy" decoding="async">
+                            <img src="images/handmade-floral-oyster-shell-dishes-480.webp" srcset="images/handmade-floral-oyster-shell-dishes-480.webp 480w, images/handmade-floral-oyster-shell-dishes-800.webp 800w" sizes="(min-width: 900px) 22vw, (min-width: 560px) 46vw, 92vw" alt="Sunflower floral gold-rim oyster shell dish" width="800" height="800" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <h3>Floral oyster shell dishes</h3>
@@ -153,7 +176,7 @@
                         <span class="badge">Available</span>
                         <picture>
                             <source type="image/avif" srcset="images/handmade-cherry-jar-cozy-480.avif 480w, images/handmade-cherry-jar-cozy-800.avif 800w" sizes="(min-width: 900px) 22vw, (min-width: 560px) 46vw, 92vw">
-                            <img src="images/handmade-cherry-jar-cozy-480.webp" srcset="images/handmade-cherry-jar-cozy-480.webp 480w, images/handmade-cherry-jar-cozy-800.webp 800w" sizes="(min-width: 900px) 22vw, (min-width: 560px) 46vw, 92vw" alt="Cherry-print fabric cozy on amber jar" width="800" height="800" loading="lazy" decoding="async">
+                            <img src="images/handmade-cherry-jar-cozy-480.webp" srcset="images/handmade-cherry-jar-cozy-480.webp 480w, images/handmade-cherry-jar-cozy-800.webp 800w" sizes="(min-width: 900px) 22vw, (min-width: 560px) 46vw, 92vw" alt="Cherry-print fabric cozies on clear mason jars" width="800" height="800" loading="lazy" decoding="async">
                         </picture>
                     </div>
                     <h3>Cherry jar cozy</h3>
@@ -182,7 +205,7 @@
                 <a class="tile" href="gifts.html">
                     <picture>
                         <source type="image/avif" srcset="images/creativekaurner-explore-gifts-480.avif 480w, images/creativekaurner-explore-gifts-800.avif 800w" sizes="(min-width: 700px) 30vw, 92vw">
-                        <img class="tile-media" src="images/creativekaurner-explore-gifts-800.webp" srcset="images/creativekaurner-explore-gifts-480.webp 480w, images/creativekaurner-explore-gifts-800.webp 800w" sizes="(min-width: 700px) 30vw, 92vw" alt="Floral oyster shell dishes as gift-ready keepsakes" width="800" height="1000" loading="lazy" decoding="async">
+                        <img class="tile-media" src="images/creativekaurner-explore-gifts-800.webp" srcset="images/creativekaurner-explore-gifts-480.webp 480w, images/creativekaurner-explore-gifts-800.webp 800w" sizes="(min-width: 700px) 30vw, 92vw" alt="Daisy floral oyster shell dishes as gift-ready keepsakes" width="800" height="1000" loading="lazy" decoding="async">
                     </picture>
                     <div class="tile-scrim"></div>
                     <div class="tile-body"><h3>Gifts</h3><p>Christmas, weddings, birthdays &amp; more</p></div>
@@ -208,7 +231,12 @@
             <div class="footer-meta">
                 <p>© <span id="year"></span> CreativeKaurner · Handmade coastal gifts</p>
                 <p class="footer-links">
-                    <a href="privacy.html">Privacy</a>
+                    <a href="shop.html">Shop</a>
+                    · <a href="gifts.html">Gifts</a>
+                    · <a href="prints.html">Prints</a>
+                    · <a href="about.html">About</a>
+                    · <a href="contact.html">Contact</a>
+                    · <a href="privacy.html">Privacy</a>
                     · <a href="https://www.instagram.com/creativekaurner/" target="_blank" rel="noopener noreferrer">Instagram</a>
                 </p>
             </div>

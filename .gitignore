@@ -5,3 +5,7 @@
 /.vs/CreativeKaurner.slnx/FileContentIndex
 /.vs/slnx.sqlite-journal
 /.vs/slnx.sqlite
+
+# Local photo backups / staging (not deployed)
+images/_originals/
+staging_images/

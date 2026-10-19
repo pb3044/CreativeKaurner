@@ -1,37 +1,45 @@
 ---
+description: Stage and refresh CreativeKaurner product/print photos when uploading new items
 alwaysApply: true
 ---
+
 # Product & print photo staging
 
 When the user uploads new items or asks to stage/refresh product or print photos, follow this workflow.
+
+## Prefer user-supplied lifestyle shots
+
+- If the user provides **lifestyle-staged** photos (model for scale, in-use props, styled shelf/table), use those as the live product images — do not replace them with plain foam/sand studio.
+- Props and models are allowed when they show **scale or use** and the handmade product remains accurate and primary.
+- Still no watermarks, logos, or invented product features.
 
 ## Preserve the real item
 
 - Keep the **exact product or landscape** as shot: shape, proportions, colours, materials, stitching, paint, shell patterns, texture, handmade imperfections, scenery.
 - Do **not** invent product features or rewrite the scene.
-- Improve **lighting, composition, and background only** (for prints: colour/clarity cleanup; remove distractors like backpacks or window frames).
+- When generating (no lifestyle upload): improve lighting/composition/background only; for prints, colour/clarity cleanup and remove distractors (backpacks, window frames).
 
-## Visual direction
+## Fallback visual direction (when generating without a lifestyle upload)
 
 - Soft natural daylight, accurate colours, subtle realistic contact shadows
 - Elegant coastal studio: pale foam/sand (`#F3F0E8` / `#E4DCCF`), clean, uncluttered
-- No text, logos, watermarks, or props touching/covering the product
-- Remove distractors (carpet/rug edges, decorative doorknobs, hands holding items)
+- No text or logos
 
 ## Pipeline
 
-1. Put raw uploads in `staging_images/` (or use paths the user provides).
+1. Put raw uploads in `staging_images/ready/` (or use paths the user provides).
 2. Backup current live masters to `images/_originals/` before replacing.
-3. Generate improved masters with `GenerateImage` + `reference_image_paths` pointing at the original.
-4. Aspect ratios: product cards `1:1`; category/gift tiles `3:4`; landscape prints match existing (`4:3` or `16:9`).
-5. Fidelity-check vs original; regenerate if the product/scene changed.
+3. If generating: `GenerateImage` + `reference_image_paths` on the original. If user lifestyle JPG: convert directly with `sharp`.
+4. Aspect ratios: product cards `1:1`; category/gift tiles `3:4`; Explore tiles ~800×1000; landscape prints match existing (`4:3` or `16:9`).
+5. Fidelity-check vs original; regenerate only if the product/scene was altered incorrectly.
 6. Replace `images/` masters keeping **existing filenames** when updating listed items (so HTML paths stay valid).
 7. Rebuild responsive variants with Node + `sharp`:
    - Tiles: `400` / `720` WebP + AVIF
    - Products: `480` / `800` WebP + AVIF (+ `*-full.webp` lightbox)
    - Prints: match existing sizes (e.g. sunrise `800` / `1400`)
-8. Also refresh home **Explore** tiles if they show the same products: `creativekaurner-explore-shop|gifts|contact-{480|800}.{webp|avif}` (portrait ~800×1000).
-9. Wire new items into `shop.html` / `gifts.html` / `prints.html` / `index.html` only after assets exist.
+8. Also refresh home **Explore** tiles if they show the same products: `creativekaurner-explore-shop|gifts|contact-{480|800}.{webp|avif}`.
+9. Update alt/lightbox copy if the staged shot changes how the product is shown (e.g. jar type).
+10. Wire new items into `shop.html` / `gifts.html` / `prints.html` / `index.html` only after assets exist.
 
 ## Naming
 
