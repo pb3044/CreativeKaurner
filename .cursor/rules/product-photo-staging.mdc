@@ -1,8 +1,6 @@
 ---
-description: Stage and professionally refresh product/print photos when uploading new CreativeKaurner shop items
 alwaysApply: true
 ---
-
 # Product & print photo staging
 
 When the user uploads new items or asks to stage/refresh product or print photos, follow this workflow.
@@ -32,9 +30,11 @@ When the user uploads new items or asks to stage/refresh product or print photos
    - Tiles: `400` / `720` WebP + AVIF
    - Products: `480` / `800` WebP + AVIF (+ `*-full.webp` lightbox)
    - Prints: match existing sizes (e.g. sunrise `800` / `1400`)
-8. Wire new items into `shop.html` / `gifts.html` / `prints.html` only after assets exist.
+8. Also refresh home **Explore** tiles if they show the same products: `creativekaurner-explore-shop|gifts|contact-{480|800}.{webp|avif}` (portrait ~800×1000).
+9. Wire new items into `shop.html` / `gifts.html` / `prints.html` / `index.html` only after assets exist.
 
 ## Naming
 
 - Handmade products: `handmade-<slug>-{full|400|480|720|800}.{webp|avif}`
+- Explore tiles: `creativekaurner-explore-{shop|gifts|contact}-{480|800}.{webp|avif}`
 - Prints: `vancouver-island-<slug>…` (keep established pattern)
