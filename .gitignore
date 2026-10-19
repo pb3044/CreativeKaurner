@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/CreativeKaurner.slnx/FileContentIndex
+/.vs/slnx.sqlite-journal
+/.vs/slnx.sqlite
