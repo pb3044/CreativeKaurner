@@ -9,3 +9,4 @@
 # Local photo backups / staging (not deployed)
 images/_originals/
 staging_images/
+/.vs/CreativeKaurner
