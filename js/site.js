@@ -9,6 +9,122 @@
 
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
+    /* Contact — assemble email/IG only after a user gesture (keeps scrapers out of HTML) */
+    const Contact = (function () {
+        const EMAIL_B64 = "Q3JlYXRpdmVrYXVybmVyQGdtYWlsLmNvbQ==";
+        const IG_USER_B64 = "Y3JlYXRpdmVrYXVybmVy";
+
+        function decode(b64) {
+            try {
+                return atob(b64);
+            } catch (err) {
+                return "";
+            }
+        }
+
+        function getEmail() {
+            return decode(EMAIL_B64);
+        }
+
+        function getInstagramUser() {
+            return decode(IG_USER_B64);
+        }
+
+        function getInstagramHandle() {
+            const user = getInstagramUser();
+            return user ? "@" + user : "";
+        }
+
+        function getInstagramUrl() {
+            const user = getInstagramUser();
+            return user ? "https://www.instagram.com/" + user + "/" : "";
+        }
+
+        function buildMailto(opts) {
+            opts = opts || {};
+            const email = getEmail();
+            if (!email) return "#";
+            let href = "mailto:" + email;
+            const parts = [];
+            if (opts.subject) parts.push("subject=" + encodeURIComponent(opts.subject));
+            if (opts.body) parts.push("body=" + encodeURIComponent(opts.body));
+            if (parts.length) href += "?" + parts.join("&");
+            return href;
+        }
+
+        function mailtoFromElement(el) {
+            return buildMailto({
+                subject: el.getAttribute("data-inquire-subject") || "",
+                body: el.getAttribute("data-inquire-body") || ""
+            });
+        }
+
+        function keepLabel(el) {
+            return el.getAttribute("data-contact-label") === "keep";
+        }
+
+        function revealEmail(el) {
+            const mailto = mailtoFromElement(el);
+            if (el.tagName === "A") el.setAttribute("href", mailto);
+            if (!keepLabel(el) && !el.querySelector("svg")) {
+                el.textContent = getEmail();
+            }
+            el.classList.add("contact-revealed");
+            return mailto;
+        }
+
+        function revealInstagram(el) {
+            const url = getInstagramUrl();
+            if (el.tagName === "A") {
+                el.setAttribute("href", url);
+                el.setAttribute("target", "_blank");
+                el.setAttribute("rel", "noopener noreferrer");
+            }
+            if (!keepLabel(el) && !el.querySelector("svg")) {
+                el.textContent = getInstagramHandle();
+            }
+            el.classList.add("contact-revealed");
+            return url;
+        }
+
+        function activate(el, openNow) {
+            const kind = el.getAttribute("data-contact");
+            if (kind === "email") {
+                const mailto = revealEmail(el);
+                if (openNow && mailto && mailto !== "#") window.location.href = mailto;
+                return;
+            }
+            if (kind === "instagram") {
+                const url = revealInstagram(el);
+                if (openNow && url) window.open(url, "_blank", "noopener,noreferrer");
+            }
+        }
+
+        document.addEventListener("click", function (event) {
+            const contactEl = event.target.closest("[data-contact]");
+            if (contactEl) {
+                event.preventDefault();
+                activate(contactEl, true);
+                return;
+            }
+
+            const inquireEl = event.target.closest("[data-inquire]");
+            if (!inquireEl) return;
+            if (inquireEl.hasAttribute("data-lightbox")) return;
+            if (inquireEl.classList.contains("lightbox-inquire")) return;
+            event.preventDefault();
+            window.location.href = mailtoFromElement(inquireEl);
+        });
+
+        return {
+            getEmail: getEmail,
+            getInstagramHandle: getInstagramHandle,
+            getInstagramUrl: getInstagramUrl,
+            buildMailto: buildMailto,
+            mailtoFromElement: mailtoFromElement
+        };
+    })();
+
     if (navbar && isHome) {
         let ticking = false;
         function updateNav() {
@@ -222,10 +338,12 @@
             dialog.setAttribute("aria-labelledby", "lightbox-title");
             dialog.removeAttribute("aria-label");
 
-            const mailto = trigger.getAttribute("data-lightbox-mailto") ||
-                (trigger.matches('a[href^="mailto:"]') ? trigger.getAttribute("href") : "");
-            if (mailto) {
-                inquire.href = mailto;
+            const hasInquire = trigger.hasAttribute("data-inquire") ||
+                trigger.hasAttribute("data-inquire-subject") ||
+                trigger.hasAttribute("data-lightbox-mailto");
+            if (hasInquire) {
+                inquire.href = trigger.getAttribute("data-lightbox-mailto") ||
+                    Contact.mailtoFromElement(trigger);
                 actions.hidden = false;
             } else {
                 inquire.removeAttribute("href");
